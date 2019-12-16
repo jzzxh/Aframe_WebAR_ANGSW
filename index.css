@@ -1,0 +1,142 @@
+#PosX {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+#PosY {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 43px;
+  left: 10px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+#PosZ {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 76px;
+  left: 10px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+
+#OriX {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 10px;
+  left: 160px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+#OriY {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 43px;
+  left: 160px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+#OriZ {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 76px;
+  left: 160px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+#angle {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 110px;
+  left: 10px;
+   /**background-color: #7611B7; **/
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+   /**visibility: hidden; **/
+}
+
+#state_s {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 145px;
+  left: 10px;
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+
+}
+
+#state_t {
+  z-index: 10;
+  width: 35%;
+  height: 5%;
+  position: absolute;
+  top: 145px;
+  left: 160px;
+  background: rgba(100,100,100,0.8);
+  text-align: left;
+  color: #FFFFFF;
+  vertical-align: middle;
+  user-select: none;
+
+}
