@@ -19,353 +19,8 @@
 
     <!-- 8thWall Web - Replace the app key here with your own app key -->
     <script async src="//apps.8thwall.com/xrweb?appKey=uElLisvzeRp2ntmE83q1Ao4KIj4trRhSWzfbd8oaOmKjFBVbnYbs4sF9WzAdxP640TTYnz"></script>
-
-    <script>
-	
-	var anges_s
-  var angle_deg
-	var state = 0
-	var sts
-
-		  
-
-      // This component hides and shows certain elements as the camera moves
-      AFRAME.registerComponent('portal', {
-        schema: {
-          width: {default: 4},
-          height: {default: 6},
-          depth: {default: 1},
-        },
-        init: function(){
-		
-          this.camera = document.getElementById('camera')
-          this.contents = document.getElementById('portal-contents')
-		  
-		  
-
-		  
-        },
-        tick: function() {
-		
-          const position = this.camera.object3D.position
-          const rotation = this.camera.object3D.rotation
-		  
-		      content_info_pos = this.contents.object3D.position
-		      content_info_ro = this.contents.object3D.rotation
-		  
-		     const obj_Pos = this.contents.object3D.position
-		  
-		     const angleRad = Math.atan2(position.z - obj_Pos.z, position.x - obj_Pos.x)
-		  
-		     anges_s = (angleRad).toFixed(2)
-          
-         angle_deg = ((angleRad).toFixed(2) * (180/Math.PI)).toFixed(2)
-
-		   
-		     document.getElementById('PosX').innerHTML = ("PostioX: " + (position.x).toFixed(2))
-		     document.getElementById('PosY').innerHTML = ("PostioY: " + (position.y).toFixed(2))
-		     document.getElementById('PosZ').innerHTML = ("PostioZ: " + (position.z).toFixed(2))
-		     document.getElementById('OriX').innerHTML = ("OriX: " + (rotation.x).toFixed(2))
-		     document.getElementById('OriY').innerHTML = ("OriY: " + (rotation.y).toFixed(2))
-		     document.getElementById('OriZ').innerHTML = ("OriZ: " + (rotation.z).toFixed(2))		  
-		     document.getElementById('angle').innerHTML = ("angle: " + ((angleRad).toFixed(2) * (180/Math.PI)).toFixed(2))		  	
-		     document.getElementById('state_s').innerHTML = sts
-		  
-		  
-		  if(anges_s < 0.6 && anges_s > -1 ){	 
-		  	sts = "Right Area"		
-		  }else if(anges_s < -1.5 && anges_s > -2 ){ 
-			  sts = "Back Area"		  
-		  }else if(anges_s < -2.2 && anges_s > -3.1 ){		  
-		  	sts = "Left Area"		  
-		  }else{		  
-		  	sts = "UnTrack Area"	
-		  }
-		  
-      }
-		
-		
- })
-	  
-	  
-	AFRAME.registerComponent('playvid', {
-
-			init: function () {
-			
-			  const obj3D = this.el.object3D
-				const v1 = document.querySelector('#vid1')
-				const v2 = document.querySelector('#vid2')
-				const v3 = document.querySelector('#vid3')
-
-        
-        
-				const el = this.el
-        const scene = this.el.sceneEl
-        
-        
-				
-        const playvideos = function(){
-
-            obj3D.visible = false  
-            v1.pause()
-            v2.pause()
-            v3.pause()
-                    
-        }
-
-        const pvid = function(evt){
-
-          
-            el.setAttribute('material','src','#vid1')
-            obj3D.visible = true 
-            v1.play()
-            v2.pause()
-            v3.pause()
-
-            //document.getElementById('state_t').innerHTML = v1.currentTime
-            
-        }
-
-        const kvid = function(evt){
-
-          el.setAttribute('material','src','#vid2')
-          obj3D.visible = true 
-          v2.play()
-          v1.pause()
-          v3.pause()
-        } 
-
-        const nvid = function(evt){
-
-          el.setAttribute('material','src','#vid3')
-          obj3D.visible = true 
-          v3.play()
-          v1.pause()
-          v2.pause()
-      }     
-      
-        const stx = function(evt){
-        
-          v1.pause()
-         v2.pause()
-          v3.pause()
-          obj3D.visible = false
-      }
-
-        scene.addEventListener('realityready',playvideos)		
-
-        scene.addEventListener('playvid1evt',pvid)			
-        scene.addEventListener('playvid2evt',kvid)			
-        scene.addEventListener('playvid3evt',nvid)			
-        scene.addEventListener('stops',stx)			
-				
-      },
-      
-      tick: function(){
-
-        if(anges_s < 0.6 && anges_s > -1 ){
-         
-          this.el.emit('playvid1evt',{value:1})
-
-       }else if(anges_s < -1.5 && anges_s > -2  ){
-     
-          this.el.emit('playvid2evt',{value:1})
-
-       }else if(anges_s < -2.2 && anges_s > -3.1  ){
-
-          this.el.emit('playvid3evt',{value:1})
- 
-       }else{
-     
-         this.el.emit('stops',{value:1})
- 
-
-      }
-
-    }
-	})
-
-  AFRAME.registerComponent('seekvid', {
-
-          init: function(){
-            const obj3D = this.el.object3D
-            const v =  document.getElementById('vid4')
-            const el = this.el
-            const scene = this.el.sceneEl
-            
-
-            obj3D.visible = true
-
-            const one = function(evt){
-
-                v.currentTime = 2
-                v.pause()
-
-            }
-
-            const two = function(evt){
-
-                v.currentTime = 3
-                v.pause()
-
-            }   
-            
-            const three = function(evt){
-
-                v.currentTime = 4
-                v.pause()
-
-            }            
-            const stopv = function(evt){
-
-                v.currentTime = 0
-                v.pause()
-
-            }             
-
-            scene.addEventListener('angleone',one)
-            scene.addEventListener('angletwo',two)
-            scene.addEventListener('anglethree',three)
-            scene.addEventListener('anglestop',stopv)
-
-
-          },
-          
-          tick: function(){
-
-            if(anges_s < 0.6 && anges_s > -1 ){
-         
-             this.el.emit('angleone',{value:1})
-        
-           }else if(anges_s < -1.5 && anges_s > -2  ){
-     
-            this.el.emit('angletwo',{value:1})
-          
-           }else if(anges_s < -2.2 && anges_s > -3.1  ){
-
-            this.el.emit('anglethree',{value:1})
-        
-          }else{
-     
-            this.el.emit('anglestop',{value:1})
-             }           
-          }
-
-  })
-
-
-  AFRAME.registerComponent('target-vids', {
-
-    init: function(){
-          
-            const obj3D = this.el.object3D
-            const el = this.el
-            const scene = this.el.sceneEl
-
-            this.camera = document.getElementById('camera')
-
-
-           
-
-            obj3D.visible = false
-            
-
-
-            const showImgge = ({detail}) =>{
-                if(detail.name != 'deer1'){
-                  return
-                }
-
-
-                const position = this.camera.object3D.position
-
-                const angleRad = Math.atan2(position.z - detail.position.z, position.x - detail.position.x)
-
-                angle_deg = ((angleRad).toFixed(2) * (180/Math.PI)).toFixed(2)
-
-                document.getElementById('angle').innerHTML = ("angle: " + angle_deg)		  
-
-                obj3D.position.copy(detail.position)
-                obj3D.quaternion.copy(detail.rotation)
-                obj3D.scale.set(detail.scale,detail.scale,detail.scale)
-                obj3D.visible = true
-
-                // if angle
-                  
-                if(angle_deg < 80 && angle_deg > 20){
-                  
-                  this.el.emit('setvid',{value:1})
-
-                }else{
-                  this.el.emit('setvidx',{value:1})
-                }
-
-
-                //end if engle
-
-
-
-                document.getElementById('state_t').innerHTML = detail.name
-
-            }
-
-            const hideImage = ({detail}) => {
-              if(detail.name != 'deer1'){
-                  return
-                }
-
-                obj3D.visible = false
-                document.getElementById('state_t').innerHTML = 'Lost'
-            }
-
-
-            scene.addEventListener('xrimagefound', showImgge)
-            scene.addEventListener('xrimageupdated', showImgge)
-            scene.addEventListener('xrimagelost', hideImage)
-
-    }
-
-  })
-
-
-  AFRAME.registerComponent('settri', {
-      
-        init: function(){
-
-            const obj3D = this.el.object3D
-            const el = this.el
-            const scene = this.el.sceneEl
-
-            const v = document.getElementById('vid2')   
-
-            const b = document.getElementById('vid1')
-
-            v.pause()
-            obj3D.visible = true
-
-            const setvid1 = function(evt){
-                v.play()
-                b.play()
-              //  obj3D.visible = true
-
-                document.getElementById('PosX').innerHTML = 'setV1'
-            }
-
-            const setx = function(evt){
-              //  v.pause()
-               // obj3D.visible = false
-                document.getElementById('PosX').innerHTML = 'XXX'
-            }
-
-
-            scene.addEventListener('setvid',setvid1)
-            scene.addEventListener('setvidx',setx)
-
-        }
-
-  })
-
-    </script>
+    <script src="main.js"></script>
+  
 
   </head>
   <body>
@@ -382,8 +37,8 @@
   
   
     <a-scene
-      antialias="true"
-      xrweb="disableWorldTracking: false"  
+      antialias="false"
+      xrweb="disableWorldTracking: true"  
       xrextras-almost-there
       xrextras-loading
       xrextras-runtime-error
@@ -395,15 +50,15 @@
 
       <a-assets>
 
-        <a-asset-item id="unicornModel" src="unicorn.glb"></a-asset-item>
+        
 
-        <a-asset-item id="frame-glb" src="frame.glb"></a-asset-item>
+        <a-asset-item id="frame-glb" src="res/frame.glb"></a-asset-item>
 
-		    <video id="vid1" muted playsinline autoplay loop="true" src="big_buck_bunny.mp4"></video> 
-		    <video id="vid2" muted playsinline autoplay loop="true" src="ForBiggerJoyrides.mp4"></video> 
-		    <video id="vid3" muted playsinline autoplay loop="true" src="ForBiggerBlazes.mp4"></video> 
+		    <video id="vid1" muted playsinline autoplay loop="true" src="res/big_buck_bunny.mp4"></video> 
+		    <video id="vid2" muted playsinline autoplay loop="true" src="res/ForBiggerJoyrides.mp4"></video> 
+		    <video id="vid3" muted playsinline autoplay loop="true" src="res/ForBiggerBlazes.mp4"></video> 
        
-        <video id="vid4" muted playsinline autoplay loop="true" src="Rincount.mp4"></video> 
+        <video id="vid4" muted playsinline autoplay loop="true" src="res/Rincount.mp4"></video> 
 		
       </a-assets>
 
@@ -434,24 +89,21 @@
         material="shader: flat;src: #vid1">
     </a-entity>
 -->
-      <a-entity id="boo" position="0 0 0" rotation="0 90 0">
-      <a-video  src="#vid1" width="6" height="5" ></a-video>
+    <!--
+      <a-entity   
+      id="setvid1"
+      geometry="primitive:plane; height: 4; width:4.58;"
+      material="shader: flat;src: #vid1">    
       </a-entity>
-    
-
-    <a-entity   
-        settri
-        geometry="primitive:plane; height: 4; width:4.58;"
-        material="shader: flat;src: #vid2"
-        position="0 0 0"
-        >    
-    </a-entity>
+    -->
   
     <a-entity 
         target-vids>
 
-      <a-entity id="frame" position="0 0 0" scale="1.2 .6 1" gltf-model="#frame-glb"></a-entity>
+      <a-entity id="frame" position="0 0 0" scale="0.95 .9 1" gltf-model="#frame-glb"></a-entity>
       <a-light type="directional" intensity="3" target="#frame" position="1.5 0.6 2.5"> </a-light>
+
+      <a-video id="vvid1" src="#vid1" width="0.89" height="0.5" position=".45 0 0.35" rotation="0 90 90" transparent=true ></a-video>
 
     </a-entity>
 
