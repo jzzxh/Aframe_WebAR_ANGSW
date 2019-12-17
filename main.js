@@ -1,8 +1,10 @@
-var anges_s
+  
+  
+  var anges_s
   var angle_deg
 	var state = 0
-	var sts
-
+  var sts
+  var curTimes = 0
 		  
 
       // This component hides and shows certain elements as the camera moves
@@ -231,29 +233,48 @@ var anges_s
 
 
   AFRAME.registerComponent('target-vids', {
+    schema:{
+        name:{type: 'string'}
+    },
 
     init: function(){
           
             const obj3D = this.el.object3D
             const el = this.el
             const scene = this.el.sceneEl
-            const v = document.getElementById('vid1')
+            
+            const v1 = document.getElementById('vid1')
+            const v2 = document.getElementById('vid2')
+            const v3 = document.getElementById('vid3')
            // const setvVidentity = document.getElementById('setvid1').object3D
 
-           const setvidOp = document.getElementById('vvid1')
+           const setvidOp1 = document.getElementById('vvid1')
+           const setvidOp2 = document.getElementById('vvid2')
+           const setvidOp3 = document.getElementById('vvid3')
+
+
 
             this.camera = document.getElementById('camera')
         
             obj3D.visible = false
             //setvVidentity.visible = false
-            setvidOp.opacity = 0
-            v.pause()
+
+
+            setvidOp1.setAttribute('opacity',0)
+            setvidOp2.setAttribute('opacity',0)
+            setvidOp3.setAttribute('opacity',0)
+
+
+
+            v1.pause()
+            v2.pause()
+            v3.pause()
 
             scene.emit('recenter')
 
 
             const showImgge = ({detail}) =>{
-                if(detail.name != 'Proto'){
+                if(detail.name != this.data.name){
                   return
                 }
 
@@ -285,19 +306,26 @@ var anges_s
                 //setvVidentity.rotation.y = 90
                // setvVidentity.scale.set(detail.scale * .15 ,detail.scale * .15,detail.scale * .15)
                // setvVidentity.visible = true
-                setvidOp.opacity = 1
-                v.play()
 
                 // if angle
-                  /*
-                if(angle_deg < 80 && angle_deg > 20){
                   
-                  this.el.emit('setvid',{value:1})
+                if(angle_deg < 50 && angle_deg > 5){
+                  
+                  this.el.emit('setvid1',{value:1})
 
-                }else{
+                }else if(angle_deg < -40 && angle_deg > -80 ){
+
+                  this.el.emit('setvid2',{value:1})
+
+                }else if( (angle_deg < -110 && angle_deg >= -180) || (angle_deg > 140 && angle_deg <= 180)){
+
+                  this.el.emit('setvid3',{value:1})
+
+                }
+                else{
                   this.el.emit('setvidx',{value:1})
                 }
-                    */
+                    
 
                 //end if engle
 
@@ -308,19 +336,71 @@ var anges_s
             }
 
             const hideImage = ({detail}) => {
-              if(detail.name != 'Proto'){
+              if(detail.name != this.data.name){
                   return
                 }
 
                 obj3D.visible = false
-                setvVidentity.visible = false
-                v.pause()
+              //  setvVidentity.visible = false
+                v1.pause()
+                v2.pause()
+                v3.pause()
                 document.getElementById('state_t').innerHTML = 'Lost'
+            }
+
+
+            const spvid1 = function(evt){
+
+              setvidOp1.setAttribute('opacity',1)
+              setvidOp2.setAttribute('opacity',0)
+              setvidOp3.setAttribute('opacity',0)
+
+              v1.play()
+              v2.pause()
+              v3.pause()
+
+            }
+            const spvid2 = function(evt){
+
+              setvidOp1.setAttribute('opacity',0)
+              setvidOp2.setAttribute('opacity',1)
+              setvidOp3.setAttribute('opacity',0)
+
+              v2.play()
+              v1.pause()
+              v3.pause()
+
+            }
+            const spvid3 = function(evt){
+
+              setvidOp1.setAttribute('opacity',0)
+              setvidOp2.setAttribute('opacity',0)
+              setvidOp3.setAttribute('opacity',1)
+              v3.play()
+              v1.pause()
+              v2.pause()
+
+
+            }
+
+            const sxvid = function(evt){
+                
+              setvidOp1.setAttribute('opacity',0)
+              setvidOp2.setAttribute('opacity',0)
+              setvidOp3.setAttribute('opacity',0)
+              v1.pause()
+              v2.pause()
+              v3.pause()
             }
 
             scene.addEventListener('xrimagefound', showImgge)
             scene.addEventListener('xrimageupdated', showImgge)
             scene.addEventListener('xrimagelost', hideImage)
+
+            scene.addEventListener('setvid1',spvid1)
+            scene.addEventListener('setvid2',spvid2)
+            scene.addEventListener('setvid3',spvid3)
+            scene.addEventListener('setvidx',sxvid)
 
     }
 

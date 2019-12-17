@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>8th Wall Web: Portal</title>
+    <title>Web AR: ANgleVid</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="stylesheet" type="text/css" href="index.css">
@@ -54,11 +54,11 @@
 
         <a-asset-item id="frame-glb" src="res/frame.glb"></a-asset-item>
 
-		    <video id="vid1" muted playsinline autoplay loop="true" src="res/big_buck_bunny.mp4"></video> 
-		    <video id="vid2" muted playsinline autoplay loop="true" src="res/ForBiggerJoyrides.mp4"></video> 
-		    <video id="vid3" muted playsinline autoplay loop="true" src="res/ForBiggerBlazes.mp4"></video> 
+		    <video id="vid1" muted playsinline  loop="true" src="res/big_buck_bunny.mp4"></video> 
+		    <video id="vid2" muted playsinline  loop="true" src="res/ForBiggerBlazes.mp4"></video> 
+		    <video id="vid3" muted playsinline  loop="true" src="res//ForBiggerJoyrides.mp4"></video> 
        
-        <video id="vid4" muted playsinline autoplay loop="true" src="res/Rincount.mp4"></video> 
+        <video id="vid4" muted playsinline  loop="true" src="res/Rincount.mp4"></video> 
 		
       </a-assets>
 
@@ -98,12 +98,15 @@
     -->
   
     <a-entity 
-        target-vids>
+        target-vids="name: deer1">
 
       <a-entity id="frame" position="0 0 0" scale="0.95 .9 1" gltf-model="#frame-glb"></a-entity>
       <a-light type="directional" intensity="3" target="#frame" position="1.5 0.6 2.5"> </a-light>
 
       <a-video id="vvid1" src="#vid1" width="0.89" height="0.5" position=".45 0 0.35" rotation="0 90 90" transparent=true ></a-video>
+      <a-video id="vvid2" src="#vid2" width="0.89" height="0.5" position="0 .45 0.35" rotation="270 90 90" transparent=true ></a-video>
+      <a-video id="vvid3" src="#vid3" width="0.89" height="0.5" position="-0.45 0 0.35" rotation="180 90 90" transparent=true ></a-video>
+      
 
     </a-entity>
 
