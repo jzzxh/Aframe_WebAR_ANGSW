@@ -17,6 +17,7 @@ pids
 
 # video files
 *.mp4
+*.webm
 
 #3d files
 *.glb

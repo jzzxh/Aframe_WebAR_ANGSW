@@ -37,7 +37,6 @@
   
   
     <a-scene
-      antialias="false"
       xrweb="disableWorldTracking: true"  
       xrextras-almost-there
       xrextras-loading
@@ -54,11 +53,10 @@
 
         <a-asset-item id="frame-glb" src="res/frame.glb"></a-asset-item>
 
-		    <video id="vid1" muted playsinline  loop="true" src="res/big_buck_bunny.mp4"></video> 
-		    <video id="vid2" muted playsinline  loop="true" src="res/ForBiggerBlazes.mp4"></video> 
-		    <video id="vid3" muted playsinline  loop="true" src="res//ForBiggerJoyrides.mp4"></video> 
-       
-        <video id="vid4" muted playsinline  loop="true" src="res/Rincount.mp4"></video> 
+		    <video id="vid1" muted playsinline  loop="true" src="res/big_buck_bunny_1.mp4"></video> 
+		    <video id="vid2" muted playsinline  loop="true" src="res/big_buck_bunny.mp4"></video> 
+		    <video id="vid3" muted playsinline  loop="true" src="res/big_buck_bunny.mp4"></video> 
+        <img id="my-image" src="res/frame.png">
 		
       </a-assets>
 
@@ -67,19 +65,19 @@
         position="0 4 10">
       </a-camera>
 	  
-      <a-entity id="portal-contents">
+      <!-- <a-entity id="portal-contents">
 
-        <!--
+       
         <a-entity
           scale="0.1 0.1 0.1"
           position="0 0 0"
-          gltf-model="#unicornModel"></a-entity>-->
+          gltf-model="#unicornModel"></a-entity>
 
 
-      </a-entity>
+      </a-entity>-->
 
-      <a-light type="ambient" intensity="5.3"></a-light>
-<!--
+ <!--     <a-light type="ambient" intensity="5.3"></a-light>
+
       <a-plane color="#D35A5A" scale="1.5 1.5 1" rotation="-90 0 0"></a-plane>
 
     <a-entity 
@@ -100,12 +98,14 @@
     <a-entity 
         target-vids="name: deer1">
 
-      <a-entity id="frame" position="0 0 0" scale="0.95 .9 1" gltf-model="#frame-glb"></a-entity>
-      <a-light type="directional" intensity="3" target="#frame" position="1.5 0.6 2.5"> </a-light>
+     <!-- <a-entity id="frame" position="0 0 0" scale="0.95 .9 1" gltf-model="#frame-glb"></a-entity> -->
+     <!-- <a-light type="directional" intensity="3" target="#frame" position="1.5 0.6 2.5"> </a-light> -->
 
-      <a-video id="vvid1" src="#vid1" width="0.89" height="0.5" position=".45 0 0.35" rotation="0 90 90" transparent=true ></a-video>
-      <a-video id="vvid2" src="#vid2" width="0.89" height="0.5" position="0 .45 0.35" rotation="270 90 90" transparent=true ></a-video>
-      <a-video id="vvid3" src="#vid3" width="0.89" height="0.5" position="-0.45 0 0.35" rotation="180 90 90" transparent=true ></a-video>
+      <a-image src="#my-image"></a-image>
+
+      <a-video id="vvid1" src="#vid1" width="0.89" height="0.5" position=".45 0 0.35" rotation="0 90 90"></a-video>
+      <!--<a-video id="vvid2" src="#vid2" width="0.89" height="0.5" position="0 .45 0.35" rotation="270 90 90" transparent=true ></a-video>-->
+      <!--<a-video id="vvid3" src="#vid3" width="0.89" height="0.5" position="-0.45 0 0.35" rotation="180 90 90" transparent=true ></a-video>-->
       
 
     </a-entity>

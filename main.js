@@ -6,7 +6,7 @@
   var sts
   var curTimes = 0
 		  
-
+/*
       // This component hides and shows certain elements as the camera moves
       AFRAME.registerComponent('portal', {
         schema: {
@@ -230,7 +230,7 @@
         }
 
   })
-
+*/
 
   AFRAME.registerComponent('target-vids', {
     schema:{
@@ -244,13 +244,13 @@
             const scene = this.el.sceneEl
             
             const v1 = document.getElementById('vid1')
-            const v2 = document.getElementById('vid2')
-            const v3 = document.getElementById('vid3')
+          //  const v2 = document.getElementById('vid2')
+          //  const v3 = document.getElementById('vid3')
            // const setvVidentity = document.getElementById('setvid1').object3D
 
-           const setvidOp1 = document.getElementById('vvid1')
-           const setvidOp2 = document.getElementById('vvid2')
-           const setvidOp3 = document.getElementById('vvid3')
+            const setvidOp1 = document.getElementById('vvid1')
+           //const setvidOp2 = document.getElementById('vvid2')
+          // const setvidOp3 = document.getElementById('vvid3')
 
 
 
@@ -261,14 +261,14 @@
 
 
             setvidOp1.setAttribute('opacity',0)
-            setvidOp2.setAttribute('opacity',0)
-            setvidOp3.setAttribute('opacity',0)
+           // setvidOp2.setAttribute('opacity',0)
+           // setvidOp3.setAttribute('opacity',0)
 
 
 
             v1.pause()
-            v2.pause()
-            v3.pause()
+          //  v2.pause()
+           // v3.pause()
 
             scene.emit('recenter')
 
@@ -279,7 +279,7 @@
                 }
 
                 
-
+                
                 const position = this.camera.object3D.position
 
                 const angleRad = Math.atan2(position.z - detail.position.z, position.x - detail.position.x)
@@ -288,14 +288,15 @@
 
                 document.getElementById('angle').innerHTML = ("angle: " + angle_deg)		  
 
+                
                 obj3D.position.copy(detail.position)
                 obj3D.quaternion.copy(detail.rotation)
                 obj3D.scale.set(detail.scale,detail.scale,detail.scale)
                 obj3D.visible = true
+                
 
-                document.getElementById('PosX').innerHTML = ("PostioX: " + (detail.position.x).toFixed(2))
-                document.getElementById('PosY').innerHTML = ("PostioY: " + (detail.position.y).toFixed(2))
-                document.getElementById('PosZ').innerHTML = ("PostioZ: " + (detail.position.z).toFixed(2))
+
+                
 
                 //object position
                 //var qua = new THREE.Quaternion(detail.rotation.x ,detail.rotation.y,detail.rotation.z,detail.rotation.w)
@@ -308,7 +309,8 @@
                // setvVidentity.visible = true
 
                 // if angle
-                  
+          
+                
                 if(angle_deg < 50 && angle_deg > 5){
                   
                   this.el.emit('setvid1',{value:1})
@@ -325,41 +327,48 @@
                 else{
                   this.el.emit('setvidx',{value:1})
                 }
-                    
+                
 
                 //end if engle
 
+                
 
-
+                document.getElementById('PosX').innerHTML = ("PostioX: " + (detail.position.x).toFixed(2))
+                document.getElementById('PosY').innerHTML = ("PostioY: " + (detail.position.y).toFixed(2))
+                document.getElementById('PosZ').innerHTML = ("PostioZ: " + (detail.position.z).toFixed(2))
                 document.getElementById('state_t').innerHTML = detail.name
+               
 
             }
 
+            
             const hideImage = ({detail}) => {
               if(detail.name != this.data.name){
                   return
                 }
 
                 obj3D.visible = false
-              //  setvVidentity.visible = false
+                
                 v1.pause()
-                v2.pause()
-                v3.pause()
+            //    v2.pause()
+                //v3.pause()
+                
+
                 document.getElementById('state_t').innerHTML = 'Lost'
             }
 
-
+            
             const spvid1 = function(evt){
 
               setvidOp1.setAttribute('opacity',1)
-              setvidOp2.setAttribute('opacity',0)
-              setvidOp3.setAttribute('opacity',0)
+            //  setvidOp2.setAttribute('opacity',0)
+            //  setvidOp3.setAttribute('opacity',0)
 
               v1.play()
-              v2.pause()
-              v3.pause()
+            //  v2.pause()
+            //  v3.pause()
 
-            }
+            }/*
             const spvid2 = function(evt){
 
               setvidOp1.setAttribute('opacity',0)
@@ -382,25 +391,31 @@
 
 
             }
+            */
+
 
             const sxvid = function(evt){
                 
               setvidOp1.setAttribute('opacity',0)
-              setvidOp2.setAttribute('opacity',0)
-              setvidOp3.setAttribute('opacity',0)
+             // setvidOp2.setAttribute('opacity',0)
+            //  setvidOp3.setAttribute('opacity',0)
               v1.pause()
-              v2.pause()
-              v3.pause()
+            //  v2.pause()
+            //  v3.pause()
             }
+            
 
+            
             scene.addEventListener('xrimagefound', showImgge)
             scene.addEventListener('xrimageupdated', showImgge)
             scene.addEventListener('xrimagelost', hideImage)
 
+            
             scene.addEventListener('setvid1',spvid1)
-            scene.addEventListener('setvid2',spvid2)
-            scene.addEventListener('setvid3',spvid3)
+            //scene.addEventListener('setvid2',spvid2)
+           // scene.addEventListener('setvid3',spvid3)
             scene.addEventListener('setvidx',sxvid)
+            
 
     }
 
