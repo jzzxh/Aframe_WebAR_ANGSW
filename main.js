@@ -4,7 +4,8 @@
   var angle_deg
 	var state = 0
   var sts
-  var curTimes = 0
+
+  //var xstate = 0
 		  
 /*
       // This component hides and shows certain elements as the camera moves
@@ -231,6 +232,8 @@
 
   })
 */
+var xstate = 0
+var curTimes = 0
 
   AFRAME.registerComponent('target-vids', {
     schema:{
@@ -244,13 +247,16 @@
             const scene = this.el.sceneEl
             
             const v1 = document.getElementById('vid1')
-          //  const v2 = document.getElementById('vid2')
-          //  const v3 = document.getElementById('vid3')
+            const v2 = document.getElementById('vid2')
+            const v3 = document.getElementById('vid3')
            // const setvVidentity = document.getElementById('setvid1').object3D
 
             const setvidOp1 = document.getElementById('vvid1')
-           //const setvidOp2 = document.getElementById('vvid2')
-          // const setvidOp3 = document.getElementById('vvid3')
+            const setvidOp2 = document.getElementById('vvid2')
+            const setvidOp3 = document.getElementById('vvid3')
+
+
+            
 
 
 
@@ -261,14 +267,14 @@
 
 
             setvidOp1.setAttribute('opacity',0)
-           // setvidOp2.setAttribute('opacity',0)
-           // setvidOp3.setAttribute('opacity',0)
+            setvidOp2.setAttribute('opacity',0)
+            setvidOp3.setAttribute('opacity',0)
 
 
 
             v1.pause()
-          //  v2.pause()
-           // v3.pause()
+            v2.pause()
+            v3.pause()
 
             scene.emit('recenter')
 
@@ -311,20 +317,31 @@
                 // if angle
           
                 
-                if(angle_deg < 50 && angle_deg > 5){
+                if(angle_deg < 70 && angle_deg > 0){
                   
                   this.el.emit('setvid1',{value:1})
-
+                  state = 1
+                  
                 }else if(angle_deg < -40 && angle_deg > -80 ){
 
                   this.el.emit('setvid2',{value:1})
+                  state = 2
 
                 }else if( (angle_deg < -110 && angle_deg >= -180) || (angle_deg > 140 && angle_deg <= 180)){
 
                   this.el.emit('setvid3',{value:1})
-
+                  state = 3
                 }
                 else{
+
+                  if(state == 1){
+                    curTimes = v1.currentTime
+                  }else if(state == 2){
+                    curTimes = v2.currentTime
+                  }else if(state == 3){
+                    curTimes = v3.currentTime
+                  }
+
                   this.el.emit('setvidx',{value:1})
                 }
                 
@@ -336,6 +353,7 @@
                 document.getElementById('PosX').innerHTML = ("PostioX: " + (detail.position.x).toFixed(2))
                 document.getElementById('PosY').innerHTML = ("PostioY: " + (detail.position.y).toFixed(2))
                 document.getElementById('PosZ').innerHTML = ("PostioZ: " + (detail.position.z).toFixed(2))
+                document.getElementById('OriX').innerHTML = ("CrrentTime: " + (curTimes).toFixed(2))
                 document.getElementById('state_t').innerHTML = detail.name
                
 
@@ -350,10 +368,21 @@
                 obj3D.visible = false
                 
                 v1.pause()
-            //    v2.pause()
-                //v3.pause()
+                v2.pause()
+                v3.pause()
                 
+                if(state == 1){
+                  curTimes = v1.currentTime
+                }else if(state == 2){
+                  curTimes = v2.currentTime
+                }else if(state == 3){
+                  curTimes = v3.currentTime
+                }
 
+                xstate = 0
+                
+               // document.getElementById('OriY').innerHTML = ("state: " + state)
+               // document.getElementById('OriZ').innerHTML = ("xstate: " + xstate)	
                 document.getElementById('state_t').innerHTML = 'Lost'
             }
 
@@ -361,19 +390,35 @@
             const spvid1 = function(evt){
 
               setvidOp1.setAttribute('opacity',1)
-            //  setvidOp2.setAttribute('opacity',0)
-            //  setvidOp3.setAttribute('opacity',0)
-
+              setvidOp2.setAttribute('opacity',0)
+              setvidOp3.setAttribute('opacity',0)
+              
+              if(xstate == 0){ 
+                
+                v1.currentTime = curTimes 
+                document.getElementById('OriZ').innerHTML = '1state'
+                xstate = 1
+              }
+              
               v1.play()
-            //  v2.pause()
-            //  v3.pause()
+              v2.pause()
+              v3.pause()
 
-            }/*
+              
+
+            }
             const spvid2 = function(evt){
 
               setvidOp1.setAttribute('opacity',0)
               setvidOp2.setAttribute('opacity',1)
               setvidOp3.setAttribute('opacity',0)
+
+              if(xstate == 0){ 
+                
+                v2.currentTime = curTimes 
+                document.getElementById('OriZ').innerHTML = '2state'
+                xstate = 1
+              }
 
               v2.play()
               v1.pause()
@@ -385,23 +430,36 @@
               setvidOp1.setAttribute('opacity',0)
               setvidOp2.setAttribute('opacity',0)
               setvidOp3.setAttribute('opacity',1)
+
+              if(xstate == 0){ 
+                
+                v3.currentTime = curTimes 
+                document.getElementById('OriZ').innerHTML = '3state'	
+                xstate = 1
+              }
+              
               v3.play()
               v1.pause()
               v2.pause()
 
-
+              
             }
-            */
+            
 
 
             const sxvid = function(evt){
                 
               setvidOp1.setAttribute('opacity',0)
-             // setvidOp2.setAttribute('opacity',0)
-            //  setvidOp3.setAttribute('opacity',0)
+              setvidOp2.setAttribute('opacity',0)
+              setvidOp3.setAttribute('opacity',0)
               v1.pause()
-            //  v2.pause()
-            //  v3.pause()
+              v2.pause()
+              v3.pause()
+
+
+
+              xstate = 0
+
             }
             
 
@@ -412,8 +470,8 @@
 
             
             scene.addEventListener('setvid1',spvid1)
-            //scene.addEventListener('setvid2',spvid2)
-           // scene.addEventListener('setvid3',spvid3)
+            scene.addEventListener('setvid2',spvid2)
+            scene.addEventListener('setvid3',spvid3)
             scene.addEventListener('setvidx',sxvid)
             
 
